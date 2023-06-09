@@ -1,0 +1,90 @@
+<section class="min-h-screen body-font text-gray-600 ">
+    <div class="container mx-auto px-5 py-10">
+        <div class="-m-4 flex flex-wrap">
+            <div class="w-full p-4 md:w-1/2 lg:w-1/2">
+              
+                <form [formGroup]="searchForm">
+                    <div class="relative">
+                        <input (keyup.enter)="onReturn()" type="text" formControlName="search"
+                            class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-100 "
+                            placeholder="Search People">
+                            
+                        <button (click)="onReturn()"
+                            class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2  flex">
+                            <div *ngIf="isLoading">
+                                <svg class="mr-3 h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                  </svg>
+                            </div> Search
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-4">
+                    <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+                        <div class="flow-root scroll overflow-auto">
+                            <ul role="list" class="divide-y divide-gray-200">
+                                <div *ngIf="swapi$; else notPeople" class="scroll overflow-auto"
+                                    (scroll)="onScroll($event)">
+                                    <div>
+                                        <app-card (selection)="getSelection($event)" *ngFor="let item of swapi$ "
+                                            [swapi]="item"></app-card>
+                                    </div>
+                                    <div *ngIf="isLoading" >
+                                        <app-loading></app-loading>
+                                    </div>
+                                </div>
+                                <ng-template #notPeople>
+                                    <div class="flex justify-center  items-center space-x-4 pt-44">
+                                        <h3 class="text-xl leading-none font-bold text-gray-900 mb-10">There are not
+                                            People</h3>
+                                    </div>
+                                    <div *ngIf="isLoading" >
+                                        <app-loading></app-loading>
+                                    </div>
+                                </ng-template>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex justify-center  items-center space-x-4">
+                        <button (click)="showInformation(url)"
+                            class="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-16 py-2  ">
+                            View</button>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full p-4 md:w-1/2 lg:w-1/2">
+                <div class="block pt-20 pl-2 w-full text-sm text-gray-900 ">
+                    <h3 class="text-xl leading-none font-bold text-gray-900 ">Show information:</h3>
+                </div>
+                <div class="mt-4">
+                    <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+
+                        <div class="flow-root overflow-auto">
+                            <ul role="list" class="divide-y divide-gray-200">
+                                <div class="information ">
+                                    <div class="flex justify-center  items-center space-x-4">
+                                        <table class="items-center w-full bg-transparent border-collapse">
+
+                                            <tbody class="">
+                                                <app-information [swapi]="information"></app-information>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div *ngIf="isLoadingView" >
+                                        <app-loading></app-loading>
+                                    </div>
+                                </div>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

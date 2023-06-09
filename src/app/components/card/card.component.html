@@ -1,0 +1,18 @@
+<li class="py-3   shadow-sm hover:bg-slate-50 rounded-md" (click)="setSelection( swapi.url )">
+  <div class="flex justify-between space-x-6 items-center pl-2 pr-2">
+    <div class="flex items-center space-x-4">
+      <div class="flex flex-col space-y-2">
+        <span>{{ swapi.name }}</span>
+        <span>{{ swapi.gender }}</span>
+      </div>
+    </div>
+    <div class="flex items-center space-x-4">
+      <div class="flex flex-col space-y-2 text-right">
+        <span> <button class="cursor-default bg-blue-700 text-white p-2 rounded-md">
+            {{ swapi.birth_year }}
+          </button></span>
+        <span>{{swapi.height }}</span>
+      </div>
+    </div>
+  </div>
+</li>
